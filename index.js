@@ -4,7 +4,7 @@ const app = express();
 const PORT = process.env.PORT || 80;
 
 app.get('/', (req, res) => {
-    res.status(200).json({
+    res.status(400).json({
         message: "Please input expression."
     });
 });
