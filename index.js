@@ -10,10 +10,18 @@ app.get('/', (req, res) => {
 });
 
 app.get('/:expression', (req, res) => {
-    const expression = req.params["expression"];
-    res.status(200).json({
-        result: eval(expression)
-    });
+    const rawExpression = req.params["expression"];
+    const expression = rawExpression.replace(':', '/');
+    try {
+        res.status(200).json({
+            result: eval(expression)
+        });
+    } catch (e) {
+        res.status(400).json({
+            message: "Your expression is not valid",
+            description: e.message
+        })
+    }
 });
 
-app.listen(PORT, () => console.log("Server running"));
+app.listen(PORT);
